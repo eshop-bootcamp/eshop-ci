@@ -206,15 +206,14 @@
         </pipeline>
         <pipeline name="WebTest">
             <materials>
-                <git url="https://github.com/eshop-bootcamp/eshop.git" />
+                <git url="https://github.com/eshop-bootcamp/eshop-web.git" materialName="Webapp" />
             </materials>
             <stage name="Setup">
                 <jobs>
                     <job name="run_yarn_install">
                         <tasks>
-                            <exec command="bash">
-                                <arg>-c</arg>
-                                <arg>yarn install</arg>
+                            <exec command="yarn">
+                                <arg>install</arg>
                                 <runif status="passed" />
                             </exec>
                         </tasks>
@@ -225,9 +224,9 @@
                 <jobs>
                     <job name="run_test">
                         <tasks>
-                            <exec command="bash">
-                                <arg>-c</arg>
-                                <arg>yarn run test</arg>
+                            <exec command="yarn">
+                                <arg>run</arg>
+                                <arg>test</arg>
                                 <runif status="passed" />
                             </exec>
                         </tasks>
@@ -238,7 +237,11 @@
                 <jobs>
                     <job name="build_artifact">
                         <tasks>
-                            <ant />
+                            <exec command="yarn">
+                                <arg>run</arg>
+                                <arg>build</arg>
+                                <runif status="passed" />
+                            </exec>
                         </tasks>
                     </job>
                 </jobs>
